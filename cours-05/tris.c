@@ -68,12 +68,34 @@ void shellSort(int* array, int n) {
     }
 }
 
+void quicksort(int* array, int n) {
+    if (n < 2) return;
+    
+    int pivot = array[n / 2];
+    
+    int i = 0;
+    int j = n - 1;
+    while(1) {
+        while(array[i] < pivot) i++;
+        while(array[j] > pivot) j--;
+        
+        if (i >= j) break;
+        
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    
+    quicksort(array, i);
+    quicksort(array + i, n - i);
+}
+
 int main()
 {
     int n = 6;
     int array[6] = { 16, 5, 11, 1, 23, 19 };
 
-    shellSort(array, n);
+    quicksort(array, n);
 
     for(int i = 0; i < n; i++)
         printf("%i\n", array[i]);

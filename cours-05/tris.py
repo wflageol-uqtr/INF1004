@@ -30,9 +30,38 @@ def shellSort(array):
                 i -= step
             array[i] = e
         step = (step - 1) // 3
+        
+def quickSort(array):
+    if len(array) <= 1:
+        return array
+
+    lesser = []
+    equal = []
+    greater = []
+    
+    pivot = array[0]
+    for e in array:
+        if e < pivot:
+            lesser.append(e)
+        elif e > pivot:
+            greater.append(e)
+        else:
+            equal.append(e)
+
+    return quickSort(lesser) + equal + quickSort(greater)
+    
+def quickSortF(array):
+    if not array:
+        return []
+    else:
+        pivot = array[0]
+        lesser = [x for x in array[1:] if x < pivot]
+        greater = [x for x in array[1:] if x >= pivot]
+        return quickSortF(lesser) + [pivot] + quickSortF(greater)
+
 
 array = [15, 5, 11, 1, 23, 19]
 
-shellSort(array)
+array = quickSortF(array)
 
 print(array)

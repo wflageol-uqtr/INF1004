@@ -65,11 +65,36 @@ void shellSort(int[] array) {
     }
 }
 
+List<Integer> quicksort(List<Integer> array) {
+    if(array.size() < 2)
+        return array;
+
+    int pivot = array.getFirst();
+
+    List<Integer> lesser = new LinkedList<>();
+    List<Integer> equal = new LinkedList<>();
+    List<Integer> greater = new LinkedList<>();
+
+    for(int e : array) {
+        if (e < pivot) lesser.add(e);
+        else if (e > pivot) greater.add(e);
+        else equal.add(e);
+    }
+
+    lesser = quicksort(lesser);
+    greater = quicksort(greater);
+
+    lesser.addAll(equal);
+    lesser.addAll(greater);
+
+    return lesser;
+}
+
 void main() {
-    int[] array = { 16, 5, 11, 1, 23, 19 };
+    Integer[] array = { 16, 5, 11, 1, 23, 19 };
 
-    shellSort(array);
+    List<Integer> result = quicksort(Arrays.asList(array));
 
-    for(int i : array)
+    for(int i : result)
         System.out.println(i);
 }
